@@ -24,7 +24,9 @@ const Card = ( { title } ) => {
 const App = () => {
 	return (
 		<div className="App">
-			Hello
+			<h1 class="text-3xl font-bold underline">
+				Hello world!
+			</h1>
 			<Card title="sneha" rating={5} />
 			<Card title="gita" />
 		</div>
