@@ -1,36 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-/**
- * A function component that returns a styled div with the title as children.
- * @param {Object} props - React props object.
- * @param {string} props.title - Title to be displayed in the card.
- * @returns {JSX.Element} A styled div with the title as children.
- */
-const Card = ( { title } ) => {
-	const [ like, setLike ] = useState(false);
-	return (
-		<>
-			<p>{ title }</p>
-			<button onClick = { () => setLike(!like) }>
-				{ like ? '❤️' : '🤍' }
-			</button>
-		</>
-	)
-}
+import React from 'react'
 
 const App = () => {
-	return (
-		<div className="App">
-			<h1 class="text-3xl font-bold underline">
-				Hello world!
-			</h1>
-			<Card title="sneha" rating={5} />
-			<Card title="gita" />
+  return (
+	<main>
+		<div className="pattern" />
+
+		<div className="wrapper">
+			<header>
+				<h1>Find <span>Movies</span>You'll enjoy without the hassle.</h1>
+			</header>
+			<p>Search</p>
 		</div>
-	)
+	</main>
+  )
 }
 
 export default App
