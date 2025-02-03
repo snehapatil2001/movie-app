@@ -10,14 +10,14 @@ import './App.css'
  * @returns {JSX.Element} A styled div with the title as children.
  */
 const Card = ( { title } ) => {
+	const [ like, setLike ] = useState(false);
 	return (
-		<p style={
-			{
-				color: 'red',
-				fontSize: '2rem',
-				fontWeight: 'bold'
-			}
-		}>{ title }</p>
+		<>
+			<p>{ title }</p>
+			<button onClick = { () => setLike(!like) }>
+				{ like ? '❤️' : '🤍' }
+			</button>
+		</>
 	)
 }
 
