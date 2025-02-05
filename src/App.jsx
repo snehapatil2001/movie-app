@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useDebounce } from 'react-use';
 import Search from './components/Search.jsx'
 import Spinner from './components/Spinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
@@ -19,6 +20,12 @@ const App = () => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [movieList, setMovieList] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+	// Debounce search term to limit API requests to only once every 500ms.
+	useDebounce(() => {
+		setDebouncedSearchTerm(searchTerm);
+	}, 500, [searchTerm]);
 
 	const fetchMovies = async (query = '') => {
 		setIsLoading(true);
@@ -51,8 +58,8 @@ const App = () => {
 	}
 
 	useEffect(() => {
-		fetchMovies(searchTerm);
-	}, [searchTerm]);
+		fetchMovies(debouncedSearchTerm);
+	}, [debouncedSearchTerm]);
 
 	return (
 		<main>
