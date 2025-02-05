@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Search from './components/Search.jsx'
 import Spinner from './components/Spinner.jsx';
+import MovieCard from './components/MovieCard.jsx';
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -19,12 +20,12 @@ const App = () => {
 	const [movieList, setMovieList] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const fetchMovies = async () => {
+	const fetchMovies = async (query = '') => {
 		setIsLoading(true);
 		setErrorMessage('');
 
 		try {
-			const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+			const endpoint = query ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 			const response = await fetch(endpoint, API_OPTIONS);
 
 			if (!response.ok) {
@@ -50,8 +51,8 @@ const App = () => {
 	}
 
 	useEffect(() => {
-		fetchMovies();
-	}, []);
+		fetchMovies(searchTerm);
+	}, [searchTerm]);
 
 	return (
 		<main>
@@ -71,11 +72,7 @@ const App = () => {
 					) : (
 						<ul>
 							{movieList.map((movie) => (
-								<li key={movie.id}>
-									<img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-									<h3>{movie.title}</h3>
-									<p>{movie.overview}</p>
-								</li>
+								<MovieCard key={movie.id} movie={movie} />
 							))}
 						</ul>
 					)
